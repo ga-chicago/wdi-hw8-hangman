@@ -9,9 +9,13 @@ const words = ['hello', 'potato', 'seven', 'tree', 'apple'];
 function startGame() {
 	game.guesses = 10;
 	game.guessedLetters = [];
-	currentWord = chooseWord()
+	currentWord = chooseWord();
 	currentGame = new Words;
-	currentGame.getLetters(currentWord)
+	currentGame.getLetters(currentWord);
+	playGame();
+}
+
+function playGame() {
 
 }
 
@@ -27,12 +31,22 @@ const game = {
 	guessedLetters: ['a','b','c'],
 	isOver() {
 		// Check if game has been won
+		// Create an array of currentGame[i].hidden
+		let arrayToCheck = []
+		for(i = 0; i < currentGame.letters.length; i++){
+			arrayToCheck.push(currentGame.letters[i]['hidden']);
+			console.log(arrayToCheck)	
+		}
+		console.log((arrayToCheck.includes(false)))
+		
 
-		//Check if game has been lost
-
-		//if neither do this
-
-
+		// Check if game has been lost
+		// else if( guesses <= 0){
+			// return console.log("You have run out of guesses, You Lose")
+		// }
+		// else {
+		// if neither do this
+			//Play another round
 	},
 	overMessage() {
 		//If game has been won return "You Win"
