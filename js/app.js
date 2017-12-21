@@ -4,7 +4,7 @@ console.log('linked');
 const inputField = document.getElementById('input-guess');
 const checkButton = document.getElementById('check-guess');
 const guessesLeft = document.getElementById('guesses-left');
-const lettersLeft = document.getElementById('letters-left');
+const lettersTried = document.getElementById('letters-guessed');
 const currentProgress = document.getElementById('current-progress');
 
 //a game object containing the rules, constraints, and logic for Hangman
@@ -21,16 +21,35 @@ const hangmanGame = {
 		// console.log(this.currentWord);
 	},
 	checkGuess() {
-		let guess = inputField.value;
-		hangmanGame.currentWord.test(guess);
-		hangmanGame.currentWord.render();
+		if (inputField.value == '') {
+			return false;
+		}
+		else {
+			let guess = inputField.value;
+			hangmanGame.currentWord.test(guess);
+			hangmanGame.currentWord.render();
+			lettersTried.innerText = hangmanGame.displayGuessed()
+			hangmanGame.isOver();
+		}
 	},
 	isOver() {
-
+		console.log(this.lettersGuessed);
 	},
 	//a method that displays messages when the game concludes
 	overMessage() {
 		//conditionals & code
+	},
+	displayGuessed() {
+		let guessedLetters = '';
+		for (let i = 0; i < this.lettersGuessed.length; i++) {
+			if (i == this.lettersGuessed.length-1) {
+				guessedLetters += this.lettersGuessed[i];
+			}
+			else {
+				guessedLetters += this.lettersGuessed[i]+', ';
+			}
+		}
+		return guessedLetters;
 	},
 	newWord() {
 		let guessIt = new Word(this.chooseWord());
