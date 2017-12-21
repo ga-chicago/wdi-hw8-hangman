@@ -11,21 +11,23 @@ const hangman = function() {
 
 	//a game object containing the rules, constraints, and logic for Hangman
 	const hangmanGame = {
-		words: ['normal',
-				'decide',
-				'ignite',
-				'linger',
-				'stitch',
-				'stress',
-				'gallon',
-				'salmon',
-				'engine',
-				'desire'
+		words: ['NORMAL',
+				'DECIDE',
+				'IGNITE',
+				'LINGER',
+				'STITCH',
+				'STRESS',
+				'GALLON',
+				'SALMON',
+				'ENGINE',
+				'DESIRE'
 				],
 		guesses: 10,
+		//an array containing all guessed letters
 		lettersGuessed: [],
+		//the storage property for the current word being guessed
 		currentWord: {},
-		//a method of the game that checks conditionals for winning, losing, or continuing to play after each round
+		//a method of the game that updates the game object properties each time a new game is started
 		startGame() {
 			this.guesses = 10;
 			this.lettersGuessed = [];
@@ -35,6 +37,7 @@ const hangman = function() {
 			lettersTried.innerText = 'letters guessed';
 			// console.log(this.currentWord);
 		},
+		//the method that is called each time the button is clicked. returns false if the input field is blank or the letter has already been guessed, otherwise updates the letters guessed array & field and runs the currentWord test and render functions to check for matches and update accordingly
 		checkGuess() {
 			let currentGuess = inputField.value;
 			console.log(hangmanGame.lettersGuessed, currentGuess);
@@ -54,6 +57,7 @@ const hangman = function() {
 				hangmanGame.isOver();
 			}
 		},
+		//runs at the end of each letter guessed, checking conditionals to see whether or not the game should end, and, if so, to run the overMessage() method alerting the user of the result of the game
 		isOver() {
 			let checkForHidden = this.currentWord.array;
 			let allShown = true;
@@ -83,6 +87,7 @@ const hangman = function() {
 				this.startGame();
 			}
 		},
+		//a method run each time a new guess is attempted that updates the html to display which letter have already been guessed and are no longer accessible
 		displayGuessed() {
 			let guessedLetters = '';
 			for (let i = 0; i < this.lettersGuessed.length; i++) {
@@ -95,11 +100,13 @@ const hangman = function() {
 			}
 			return guessedLetters;
 		},
+		//a method that is run at the start of each new game. creates a new Word class object and assigns it to the currentWord property of the game object for use in referencing it throughout the game
 		newWord() {
 			let guessIt = new Word(this.chooseWord());
 			guessIt.createLetters(guessIt.word);
 			return guessIt;
 		},
+		//a method that randomly selects a word in the words array property of the game object
 		chooseWord() {
 			let arrIndex = Math.floor(Math.random()*this.words.length);
 			return this.words[arrIndex];
@@ -185,14 +192,7 @@ const hangman = function() {
 hangman();
 
 
-// let foo = new Letter('l');
-// console.log(boo);
-// let bar = new Word(chooseWord());
 
-// bar.createLetters(bar.word);
-// bar.test('r');
-// console.log(bar);
-// console.log(bar.render());
 
 
 

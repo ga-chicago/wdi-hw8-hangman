@@ -17,3 +17,6 @@ h1 {
 	font-size: 24px;
 	/*background-color: peachpuff;*/
 }
+#input-guess {
+	text-transform: uppercase;
+}
