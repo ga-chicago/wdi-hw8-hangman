@@ -3,19 +3,32 @@ console.log('linked');
 //declaring properties 
 const inputField = document.getElementById('input-guess');
 const checkButton = document.getElementById('check-guess');
+const guessesLeft = document.getElementById('guesses-left');
+const lettersLeft = document.getElementById('letters-left');
+const currentProgress = document.getElementById('current-progress');
 
 //a game object containing the rules, constraints, and logic for Hangman
 const hangmanGame = {
 	words: ['larry'],
 	guesses: 10,
 	lettersGuessed: [],
-	currentWord: '',
+	currentWord: {},
 	//a method of the game that checks conditionals for winning, losing, or continuing to play after each round
 	startGame() {
 		this.currentWord = this.newWord();
 		this.currentWord.render();
+		guessesLeft.innerText = this.guesses;
+		// console.log(this.currentWord);
 	},
-	//a funtion that displays messages when the game concludes
+	checkGuess() {
+		let guess = inputField.value;
+		hangmanGame.currentWord.test(guess);
+		hangmanGame.currentWord.render();
+	},
+	isOver() {
+
+	},
+	//a method that displays messages when the game concludes
 	overMessage() {
 		//conditionals & code
 	},
@@ -48,6 +61,9 @@ class Word {
 	}
 	//loops through the Letter class objects in the array property and checks if they match the guessed letter. updates boolean values of the hidden property of any objects whose letter matches that of the guessed letter and returns a boolean based on whether any match at all
 	test(str) {
+		//decrements the number of remaining guesses and updates the html *********** PROBABLY WANT TO MOVE THIS LOGIC SOMEWHERE ELSE BUT FOR NOW IS OK *************
+		hangmanGame.guesses--;
+		guessesLeft.innerText = hangmanGame.guesses;
 		hangmanGame.lettersGuessed.push(str);
 		let anyMatch = false;
 		for (let i = 0; i < this.array.length; i++) {
@@ -67,7 +83,7 @@ class Word {
 			let currentObj = this.array[i];
 			showProgess += currentObj.display()+' ';
 		}
-		document.getElementById('current-progress').innerText = showProgess;
+		currentProgress.innerText = showProgess;
 		return showProgess;
 	}
 }
@@ -96,7 +112,8 @@ class Letter {
 
 //added a function to bind event listeners to properties
 const bindEvents = function() {
-	checkButton.addEventListener('click', hangmanGame.currentWord.test)
+	checkButton.addEventListener('click', hangmanGame.checkGuess)
+	console.log('bound!');
 }
 
 bindEvents();
