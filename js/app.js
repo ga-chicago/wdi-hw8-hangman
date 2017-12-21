@@ -1,25 +1,28 @@
 console.log('linked');
 
+//declaring properties 
+const inputField = document.getElementById('input-guess');
+const checkButton = document.getElementById('check-guess');
 
 //a game object containing the rules, constraints, and logic for Hangman
 const hangmanGame = {
 	words: ['larry'],
 	guesses: 10,
 	lettersGuessed: [],
+	currentWord: '',
 	//a method of the game that checks conditionals for winning, losing, or continuing to play after each round
-	isOver() {
-		let newRound = this.newWord();
-		console.log(newRound);
-
+	startGame() {
+		this.currentWord = this.newWord();
+		this.currentWord.render();
 	},
 	//a funtion that displays messages when the game concludes
 	overMessage() {
 		//conditionals & code
 	},
 	newWord() {
-		let guessWord = new Word(this.chooseWord());
-		guessWord.createLetters(guessWord.word);
-		return guessWord;
+		let guessIt = new Word(this.chooseWord());
+		guessIt.createLetters(guessIt.word);
+		return guessIt;
 	},
 	chooseWord() {
 		let arrIndex = Math.floor(Math.random()*this.words.length);
@@ -64,6 +67,7 @@ class Word {
 			let currentObj = this.array[i];
 			showProgess += currentObj.display()+' ';
 		}
+		document.getElementById('current-progress').innerText = showProgess;
 		return showProgess;
 	}
 }
@@ -90,7 +94,13 @@ class Letter {
 }
 
 
-hangmanGame.isOver();
+//added a function to bind event listeners to properties
+const bindEvents = function() {
+	checkButton.addEventListener('click', hangmanGame.currentWord.test)
+}
+
+bindEvents();
+hangmanGame.startGame();
 
 
 

@@ -1,0 +1,12 @@
+* {
+	border: 1px solid black;
+	text-align: center;
+	margin: 20px;
+}
+body {
+	background-color: powderblue;
+}
+.info-box {
+	padding: 10px;
+	background-color: peachpuff;
+}
