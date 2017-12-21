@@ -11,7 +11,18 @@ const hangman = function() {
 
 	//a game object containing the rules, constraints, and logic for Hangman
 	const hangmanGame = {
-		words: ['larry'],
+		words: ['larry',
+				'normal',
+				'decide',
+				'ignite',
+				'linger',
+				'stitch',
+				'stress',
+				'gallon',
+				'salmon',
+				'engine',
+				'desire'
+				],
 		guesses: 10,
 		lettersGuessed: [],
 		currentWord: {},
