@@ -2,81 +2,93 @@
 
 const words = ['hello', 'potato', 'seven', 'tree', 'apple'];
 
-function chooseWord() {
-	let chosenWord = words[Math.floor(Math.random()*words.length)]
-	return chosenWord
+
+
+
+
+function startGame() {
+	game.guesses = 10;
+	game.guessedLetters = [];
+	currentWord = chooseWord()
+	currentGame = new Words;
+	currentGame.getLetters(currentWord)
+
 }
 
 
-// const game = {
-// 	//guesses remaining
-// 	guesses: 10,
-// 	//guessed letter
-// 	gussedLetters: [],
-// 	isOver() {
-// 		// Check if game has been won
+function chooseWord() {
+	return words[Math.floor(Math.random()*words.length)]
+}
 
-// 		//Check if game has been lost
+const game = {
+	//guesses remaining
+	guesses: 0,
+	//guessed letters
+	guessedLetters: ['a','b','c'],
+	isOver() {
+		// Check if game has been won
 
-// 		//if neither do this
+		//Check if game has been lost
 
-
-// 	},
-// 	overMessage() {
-// 		//If game has been won return "You Win"
-
-// 		//If game has been lost return "You Lose"
-// 	}
-// };
+		//if neither do this
 
 
-// class Letter {
-// 	constructor(value, hidden){
-// 		this.value = value;
-// 		this.hidden = true;
-// 	}
-// 	show() {
-// 		// Take a letter and change the value of hidden to false
-// 	}
-// 	display() {
-// 		//If the value if the letter is not hidden
+	},
+	overMessage() {
+		//If game has been won return "You Win"
 
-// 		//Return a _ if the letter is hidden
-// 	}
-// }
+		//If game has been lost return "You Lose"
+	}
+};
 
 
-// class Words {
-// 	constructor(newWord, letters){
-// 		this.letters = [];
-// 	}
-// 	getLetters(newWord) {
-// 		for(i = 0; i < newWord.length; i++){
-// 			let char = new Letter(newWord[i]);
-// 			this.letters.push(char);
-// 		}
-// 	}
-// 	isFound() {
-// 		// If true call game.overMessage()
+class Letter {
+	constructor(value, hidden){
+		this.value = value;
+		this.hidden = true;
+	}
+	show() {
+		// Take a letter and change the value of hidden to false
+	}
+	display() {
+		//If the value if the letter is not hidden
 
-// 		//Otherwise return false
-// 	}
-// 	test(letter) {
-// 		//Go through letter array and update any hidden values that match this input
-// 	}
-// 	render() {
-// 		// Return the word showing either the unhidden letters (if guessed) or a _ if hidden
-// 	}
-// }
+		//Return a _ if the letter is hidden
+	}
+}
 
 
+class Words {
+	constructor(newWord, letters){
+		this.letters = [];
+	}
+	getLetters(newWord) {
+		for(let i = 0; i < newWord.length; i++){
+			let char = new Letter(newWord[i]);
+			this.letters.push(char);
+		}
+	}
+	isFound() {
+		// If true call game.overMessage()
+
+		//Otherwise return false
+	}
+	test(letter) {
+		//Go through letter array and update any hidden values that match this input
+	}
+	render() {
+		// Return the word showing either the unhidden letters (if guessed) or a _ if hidden
+	}
+}
 
 
 
 
 
 
-chooseWord()
+
+
+
 
 
 
