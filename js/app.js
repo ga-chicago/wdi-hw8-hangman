@@ -36,7 +36,13 @@ const hangman = function() {
 			// console.log(this.currentWord);
 		},
 		checkGuess() {
+			let currentGuess = inputField.value;
+			console.log(hangmanGame.lettersGuessed, currentGuess);
 			if (inputField.value == '') {
+				return false;
+			}
+			else if (hangmanGame.lettersGuessed.includes(currentGuess)) {
+				inputField.value = '';
 				return false;
 			}
 			else {
