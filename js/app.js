@@ -15,9 +15,12 @@ const hangmanGame = {
 	currentWord: {},
 	//a method of the game that checks conditionals for winning, losing, or continuing to play after each round
 	startGame() {
+		this.guesses = 10;
+		this.lettersGuessed = [];
 		this.currentWord = this.newWord();
 		this.currentWord.render();
-		guessesLeft.innerText = this.guesses;
+		guessesLeft.innerText = 'guesses left: '+this.guesses;
+		lettersTried.innerText = 'letters guessed';
 		// console.log(this.currentWord);
 	},
 	checkGuess() {
@@ -26,6 +29,7 @@ const hangmanGame = {
 		}
 		else {
 			let guess = inputField.value;
+			inputField.value = '';
 			hangmanGame.currentWord.test(guess);
 			hangmanGame.currentWord.render();
 			lettersTried.innerText = hangmanGame.displayGuessed()
@@ -33,11 +37,33 @@ const hangmanGame = {
 		}
 	},
 	isOver() {
-		console.log(this.lettersGuessed);
+		let checkForHidden = this.currentWord.array;
+		let allShown = true;
+		for (let i = 0; i < checkForHidden.length; i++) {
+			if (checkForHidden[i].hidden == true) {
+				allShown = false;
+			}
+		}
+		if (this.guesses == 0 && allShown == false) {
+			this.overMessage(false);
+		}
+		else if (this.guesses >= 0 && allShown == true) {
+			this.overMessage(true);
+		}
+		else {
+			return false;
+		}
 	},
 	//a method that displays messages when the game concludes
-	overMessage() {
-		//conditionals & code
+	overMessage(boolean) {
+		if (boolean) {
+			alert(this.currentWord.word+'! You got it!');
+			this.startGame();
+		}
+		else {
+			alert('You lose.');
+			this.startGame();
+		}
 	},
 	displayGuessed() {
 		let guessedLetters = '';
@@ -82,7 +108,7 @@ class Word {
 	test(str) {
 		//decrements the number of remaining guesses and updates the html *********** PROBABLY WANT TO MOVE THIS LOGIC SOMEWHERE ELSE BUT FOR NOW IS OK *************
 		hangmanGame.guesses--;
-		guessesLeft.innerText = hangmanGame.guesses;
+		guessesLeft.innerText = 'guesses left: '+hangmanGame.guesses;
 		hangmanGame.lettersGuessed.push(str);
 		let anyMatch = false;
 		for (let i = 0; i < this.array.length; i++) {
