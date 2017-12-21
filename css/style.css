@@ -1,12 +1,19 @@
 * {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	text-align: center;
 	margin: 20px;
 }
 body {
 	background-color: powderblue;
 }
+h1 {
+	font-size: 42px;
+	text-decoration: underline;
+	text-decoration-skip: ink;
+}
 .info-box {
 	padding: 10px;
-	background-color: peachpuff;
+	border-bottom: 3px solid black;
+	font-size: 24px;
+	/*background-color: peachpuff;*/
 }
