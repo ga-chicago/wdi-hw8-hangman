@@ -36,6 +36,7 @@ class Word {
 		this.word = word;
 		this.array = [];
 	}
+	//splits up the word into individual letters and returns objects based on the Letter class then pushes them into the array property
 	createLetters(randomWord) {
 		for (let i = 0; i < randomWord.length; i++) {
 			let letterObj = new Letter(randomWord[i]);
@@ -43,6 +44,28 @@ class Word {
 			this.array.push(letterObj);
 			// console.log(this.array);
 		}
+	}
+	//loops through the Letter class objects in the array property and checks if they match the guessed letter. updates boolean values of the hidden property of any objects whose letter matches that of the guessed letter and returns a boolean based on whether any match at all
+	test(str) {
+		let anyMatch = false;
+		for (let i = 0; i < this.array.length; i++) {
+			let currentObj = this.array[i];
+			// console.log(currentObj);
+			if (currentObj.letter == str) {
+				currentObj.hidden = false;
+				anyMatch = true;
+			}
+		}
+		return anyMatch;
+	}
+	//function that loops through each letter object in the letter array and checks if they've been found by using the display method of each letter object, concatenating the letter itself if they have and an underscore if not, then returning that string
+	render() {
+		let showProgess = '';
+		for (let i = 0; i < this.array.length; i++) {
+			let currentObj = this.array[i];
+			showProgess += currentObj.display()+' ';
+		}
+		return showProgess;
 	}
 }
 
@@ -67,10 +90,14 @@ class Letter {
 	}
 }
 
-let boo = new Letter('l');
-console.log(boo);
+// let foo = new Letter('l');
+// console.log(boo);
+let bar = new Word(chooseWord());
 
-
+bar.createLetters(bar.word);
+bar.test('z');
+console.log(bar);
+console.log(bar.render());
 
 
 
