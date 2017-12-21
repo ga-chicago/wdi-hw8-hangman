@@ -183,6 +183,11 @@ const hangman = function() {
 	//added a function to bind event listeners to properties
 	const bindEvents = function() {
 		checkButton.addEventListener('click', hangmanGame.checkGuess)
+		document.addEventListener('keydown', (event)=>{
+			if (event.keyCode == 13) {
+				hangmanGame.checkGuess();
+			}
+		})
 		console.log('bound!');
 	}
 
