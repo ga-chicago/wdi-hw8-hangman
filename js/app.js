@@ -134,8 +134,6 @@ const hangman = function() {
 		test(str) {
 			//decrements the number of remaining guesses and updates the html *********** PROBABLY WANT TO MOVE THIS LOGIC SOMEWHERE ELSE BUT FOR NOW IS OK *************
 			let theGuess = str.toUpperCase();
-			hangmanGame.guesses--;
-			guessesLeft.innerText = 'guesses left: '+hangmanGame.guesses;
 			hangmanGame.lettersGuessed.push(theGuess);
 			let anyMatch = false;
 			for (let i = 0; i < this.array.length; i++) {
@@ -145,6 +143,10 @@ const hangman = function() {
 					currentObj.hidden = false;
 					anyMatch = true;
 				}
+			}
+			if (anyMatch == false) {
+				hangmanGame.guesses--;
+				guessesLeft.innerText = 'guesses left: '+hangmanGame.guesses;
 			}
 			return anyMatch;
 		}
