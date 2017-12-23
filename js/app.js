@@ -40,7 +40,7 @@ const hangman = function() {
 		//the method that is called each time the button is clicked. returns false if the input field is blank or the letter has already been guessed, otherwise updates the letters guessed array & field and runs the currentWord test and render functions to check for matches and update accordingly
 		checkGuess() {
 			let currentGuess = inputField.value;
-			console.log(hangmanGame.lettersGuessed, currentGuess);
+			// console.log(currentGuess, this.currentWord);
 			if (inputField.value == '') {
 				return false;
 			}
@@ -83,7 +83,7 @@ const hangman = function() {
 				this.startGame();
 			}
 			else {
-				alert('You lose.');
+				alert('You lose. Your word was '+this.currentWord.word+'.');
 				this.startGame();
 			}
 		},
@@ -103,6 +103,7 @@ const hangman = function() {
 		//a method that is run at the start of each new game. creates a new Word class object and assigns it to the currentWord property of the game object for use in referencing it throughout the game
 		newWord() {
 			let guessIt = new Word(this.chooseWord());
+			// console.log(guessIt);
 			guessIt.createLetters(guessIt.word);
 			return guessIt;
 		},
@@ -132,14 +133,15 @@ const hangman = function() {
 		//loops through the Letter class objects in the array property and checks if they match the guessed letter. updates boolean values of the hidden property of any objects whose letter matches that of the guessed letter and returns a boolean based on whether any match at all
 		test(str) {
 			//decrements the number of remaining guesses and updates the html *********** PROBABLY WANT TO MOVE THIS LOGIC SOMEWHERE ELSE BUT FOR NOW IS OK *************
+			let theGuess = str.toUpperCase();
 			hangmanGame.guesses--;
 			guessesLeft.innerText = 'guesses left: '+hangmanGame.guesses;
-			hangmanGame.lettersGuessed.push(str);
+			hangmanGame.lettersGuessed.push(theGuess);
 			let anyMatch = false;
 			for (let i = 0; i < this.array.length; i++) {
 				let currentObj = this.array[i];
 				// console.log(currentObj);
-				if (currentObj.letter == str) {
+				if (currentObj.letter == theGuess) {
 					currentObj.hidden = false;
 					anyMatch = true;
 				}
@@ -149,11 +151,15 @@ const hangman = function() {
 		//function that loops through each letter object in the letter array and checks if they've been found by using the display method of each letter object, concatenating the letter itself if they have and an underscore if not, then returning that string
 		render() {
 			let showProgess = '';
+			// console.log(this.array);
 			for (let i = 0; i < this.array.length; i++) {
 				let currentObj = this.array[i];
+				// currentObj.letter = currentObj.letter.toUpperCase();
+				// console.log(currentObj);
 				showProgess += currentObj.display()+' ';
 			}
 			currentProgress.innerText = showProgess;
+			// console.log(showProgess);
 			return showProgess;
 		}
 	}
@@ -188,7 +194,7 @@ const hangman = function() {
 				hangmanGame.checkGuess();
 			}
 		})
-		console.log('bound!');
+		console.log('events bound!');
 	}
 
 	bindEvents();
